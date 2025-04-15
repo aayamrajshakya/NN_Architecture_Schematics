@@ -1,69 +1,46 @@
-# PlotNeuralNet
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2526396.svg)](https://doi.org/10.5281/zenodo.2526396)
+# Neural Network Architecture Schematics
 
-Latex code for drawing neural networks for reports and presentation. Have a look into examples to see how they are made. Additionally, lets consolidate any improvements that you make and fix any bugs to help more people with this code.
-
-## Examples
-
-Following are some network representations:
-
-<p align="center"><img  src="https://user-images.githubusercontent.com/17570785/50308846-c2231880-049c-11e9-8763-3daa1024de78.png" width="85%" height="85%"></p>
-<h6 align="center">FCN-8 (<a href="https://www.overleaf.com/read/kkqntfxnvbsk">view on Overleaf</a>)</h6>
+Customized for personal use, based on [PlotNeuralNet](https://github.com/HarisIqbal88/PlotNeuralNet).
 
 
-<p align="center"><img  src="https://user-images.githubusercontent.com/17570785/50308873-e2eb6e00-049c-11e9-9587-9da6bdec011b.png" width="85%" height="85%"></p>
-<h6 align="center">FCN-32 (<a href="https://www.overleaf.com/read/wsxpmkqvjnbs">view on Overleaf</a>)</h6>
+### Example
+<p align="center"><img src="images/discriminator.png" width="85%" height="85%"></p>
+<h6 align="center">Fig: Custom discriminator architecture</h6>
 
+<p align="center"><img src="images/generator.png" width="85%" height="85%"></p>
+<h6 align="center">Fig: Custom generator architecture</h6>
 
-<p align="center"><img  src="https://user-images.githubusercontent.com/17570785/50308911-03b3c380-049d-11e9-92d9-ce15669017ad.png" width="85%" height="85%"></p>
-<h6 align="center">Holistically-Nested Edge Detection (<a href="https://www.overleaf.com/read/jxhnkcnwhfxp">view on Overleaf</a>)</h6>
+***
 
-## Getting Started
-1. Install the following packages on Ubuntu.
-    * Ubuntu 16.04
-        ```
-        sudo apt-get install texlive-latex-extra
-        ```
+### Getting Started
+1. Install the following packages (for Ubuntu):
+   
+  ```bash
+  sudo apt-get install texlive-latex-base
+  sudo apt-get install texlive-fonts-recommended
+  sudo apt-get install texlive-fonts-extra
+  sudo apt-get install texlive-latex-extra
+  ```
 
-    * Ubuntu 18.04.2
-Base on this [website](https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d), please install the following packages.
-        ```
-        sudo apt-get install texlive-latex-base
-        sudo apt-get install texlive-fonts-recommended
-        sudo apt-get install texlive-fonts-extra
-        sudo apt-get install texlive-latex-extra
-        ```
+> [!IMPORTANT]  
+> The package build commands may vary depending on the Linux distro.
 
-    * Windows
-    1. Download and install [MikTeX](https://miktex.org/download).
-    2. Download and install bash runner on Windows, recommends [Git bash](https://git-scm.com/download/win) or Cygwin(https://www.cygwin.com/)
+2. Execute the program as follows:
+   
+ ```bash
+ chmod +x tikzmake.sh
+ cd architecture/
+ ../tikzmake.sh <file_name>  # Enter filename without '.py'
+ ```
+    
+   Alternatively:
+```bash
+cd architecture/
+python <filename>.py      # Generate .tex file
+pdflatex <filename>.tex   # Compile the .tex file into PDF
+```
 
-2. Execute the example as followed.
-    ```
-    cd pyexamples/
-    bash ../tikzmake.sh test_simple
-    ```
-
-## TODO
-
-- [X] Python interface
-- [ ] Add easy legend functionality
-- [ ] Add more layer shapes like TruncatedPyramid, 2DSheet etc
-- [ ] Add examples for RNN and likes.
-
-## Latex usage
-
-See [`examples`](examples) directory for usage.
-
-## Python usage
-
-First, create a new directory and a new Python file:
-
-    $ mkdir my_project
-    $ cd my_project
-    vim my_arch.py
-
-Add the following code to your new file:
+### Sample code
 
 ```python
 import sys
@@ -93,9 +70,4 @@ if __name__ == '__main__':
     main()
 ```
 
-Now, run the program as follows:
-
-    bash ../tikzmake.sh my_arch
-
-
-
+#### Thank you!

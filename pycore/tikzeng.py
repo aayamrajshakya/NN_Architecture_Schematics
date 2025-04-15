@@ -33,8 +33,9 @@ def to_begin():
 \tikzstyle{copyconnection}=[ultra thick,every node/.style={sloped,allow upside down},draw={rgb:blue,4;red,1;green,1;black,3},opacity=0.7]
 """
 
-# layers definition
+# Layers definition
 
+# Input image
 def to_input( pathfile, to='(-3,0,0)', width=8, height=8, name="temp" ):
     return r"""
 \node[canvas is zy plane at x=0] (""" + name + """) at """+ to +""" {\includegraphics[width="""+ str(width)+"cm"+""",height="""+ str(height)+"cm"+"""]{"""+ pathfile +"""}};
@@ -76,8 +77,6 @@ def to_ConvConvRelu( name, s_filer=256, n_filer=(64,64), offset="(0,0,0)", to="(
     };
 """
 
-
-
 # Pool
 def to_Pool(name, offset="(0,0,0)", to="(0,0,0)", width=1, height=32, depth=32, opacity=0.5, caption=" "):
     return r"""
@@ -110,8 +109,6 @@ def to_UnPool(name, offset="(0,0,0)", to="(0,0,0)", width=1, height=32, depth=32
     };
 """
 
-
-
 def to_ConvRes( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=6, height=40, depth=40, opacity=0.2, caption=" " ):
     return r"""
 \pic[shift={ """+ offset +""" }] at """+ to +""" 
@@ -130,7 +127,6 @@ def to_ConvRes( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", w
     };
 """
 
-
 # ConvSoftMax
 def to_ConvSoftMax( name, s_filer=40, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
     return r"""
@@ -143,6 +139,135 @@ def to_ConvSoftMax( name, s_filer=40, offset="(0,0,0)", to="(0,0,0)", width=1, h
         height="""+ str(height) +""",
         width="""+ str(width) +""",
         depth="""+ str(depth) +"""
+        }
+    };
+"""
+
+def to_Conv1D(name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", 
+              width=1, height=40, depth=40, caption=" "):
+    """1D Convolutional layer representation"""
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {Box={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        xlabel={{""" + str(n_filer) + """, }},
+        zlabel="""+ str(s_filer) +""",
+        fill=\ConvColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +""",
+        label={[rotate=90]right:Conv1D}
+        }
+    };
+"""
+
+def to_BatchNorm(name, offset="(0,0,0)", to="(0,0,0)", 
+                 width=1, height=40, depth=40, caption=" "):
+    """Batch Normalization layer"""
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {Box={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        fill={rgb:green,5;white,3},
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +""",
+        label={[rotate=90]right:BatchNorm}
+        }
+    };
+"""
+
+def to_PReLU(name, offset="(0,0,0)", to="(0,0,0)", 
+             width=1, height=40, depth=40, caption=" "):
+    """PReLU activation layer"""
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {Box={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        fill={rgb:red,5;yellow,3},
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +""",
+        label={[rotate=90]right:PReLU}
+        }
+    };
+"""
+
+def to_Dropout(name, offset="(0,0,0)", to="(0,0,0)", 
+               width=1, height=40, depth=40, opacity=0.6, caption=" "):
+    """Dropout layer representation"""
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {Box={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        fill={rgb:black,3;white,5},
+        opacity="""+ str(opacity) +""",
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +""",
+        label={[rotate=90]right:Dropout}
+        }
+    };
+"""
+
+# Activation functions
+def to_Activation(name, activation_type, offset="(0,0,0)", to="(0,0,0)", 
+                 width=1, height=10, depth=10, caption=""):
+    colors = {
+        'tanh': 'rgb:red,5;white,3',
+        'relu': 'rgb:yellow,5;red,3',
+        'sigmoid': 'rgb:magenta,5;white,3'
+    }
+    color = colors.get(activation_type.lower(), 'rgb:white,1;black,3')
+    
+    return r"""
+    \pic[shift={"""+offset+"""}] at """+to+""" 
+    {Box={
+        name="""+name+""",
+        caption="""+caption or activation_type+""",
+        fill="""+color+""",
+        height="""+str(height)+""",
+        width="""+str(width)+""",
+        depth="""+str(depth)+"""
+        }
+    };
+    """
+    
+def to_GlobalAvgPool1D(name, offset="(0,0,0)", to="(0,0,0)", 
+                      width=1, height=40, depth=40, caption=" "):
+    """Global Average Pooling for 1D"""
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {Box={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        fill=\PoolColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +""",
+        label={[rotate=90]right:GAP}
+        }
+    };
+"""
+
+def to_Dense(name, n_filer=1, offset="(0,0,0)", to="(0,0,0)", 
+             width=1, height=40, depth=40, caption=" "):
+    """Fully connected/Dense layer"""
+    return r"""
+\pic[shift={"""+ offset +"""}] at """+ to +""" 
+    {Box={
+        name=""" + name +""",
+        caption="""+ caption +r""",
+        xlabel={{""" + str(n_filer) + """, }},
+        fill=\FcColor,
+        height="""+ str(height) +""",
+        width="""+ str(width) +""",
+        depth="""+ str(depth) +""",
+        label={[rotate=90]right:Dense}
         }
     };
 """
@@ -178,7 +303,6 @@ def to_Sum( name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
     };
 """
 
-
 def to_connection( of, to):
     return r"""
 \draw [connection]  ("""+of+"""-east)    -- node {\midarrow} ("""+to+"""-west);
@@ -200,12 +324,9 @@ def to_end():
 \end{document}
 """
 
-
 def to_generate( arch, pathname="file.tex" ):
     with open(pathname, "w") as f: 
         for c in arch:
             print(c)
             f.write( c )
-     
-
-
+        
