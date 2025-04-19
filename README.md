@@ -4,10 +4,10 @@ Customized for personal use, based on [PlotNeuralNet](https://github.com/HarisIq
 
 
 ### Example
-<p align="center"><img src="images/discriminator.png" width="85%" height="85%"></p>
+<p align="center"><img src="images/discriminator.png" width="100%" height="100%"></p>
 <h6 align="center">Fig: Custom discriminator architecture</h6>
 
-<p align="center"><img src="images/generator.png" width="85%" height="85%"></p>
+<p align="center"><img src="images/generator.png" width="100%" height="100%"></p>
 <h6 align="center">Fig: Custom generator architecture</h6>
 
 ***
